@@ -13,6 +13,8 @@ CtrlUtil	KEYWORD1
 # Methods and Functions (KEYWORD2)
 #######################################
 
+invertAxis	KEYWORD2
+
 #######################################
 # Instances (KEYWORD2)
 #######################################

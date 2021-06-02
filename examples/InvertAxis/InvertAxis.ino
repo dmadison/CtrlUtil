@@ -21,28 +21,37 @@
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
- *
+ * 
+ *  Example:      InvertAxis
+ *  Description:  Takes an input value from a potentiometer connected to the board's
+ *                analog to digital converter (ADC) and inverts it.
  */
 
-#ifndef CTRLUTIL_H
-#define CTRLUTIL_H
+#include <CtrlUtil.h>
 
-#include <stdint.h>
+const int InputPin = A0;
 
+const int AnalogMin = 0;     // min value returned from the ADC
+const int AnalogMax = 1023;  // max value returned from the ADC
 
-template <typename T>
-constexpr T invertAxis(T value, T adc_min, T adc_max)
-{
-	return 
-		value >= adc_max ? adc_min :  // check if at max
-		value <= adc_min ? adc_max :  // check if at min
-		(adc_max - value) + adc_min;  // otherwise calculate
+void setup() {
+	Serial.begin(115200);
+
+	pinMode(InputPin, INPUT);
 }
 
-template <typename T>
-constexpr T invertAxis(T value)
-{
-	return invertAxis<T>(value, 0, 1023);  // ADC defaults for AVR
-}
+void loop() {
+	int value = analogRead(InputPin);
 
-#endif
+	// int inverted = invertAxis(value);  // using 0-1023
+	int inverted = invertAxis(value, AnalogMin, AnalogMax);  // using custom values (set above)
+
+	Serial.print("Axis: ");
+	Serial.print(value);
+	Serial.print('\t');
+	Serial.print("Inverted: ");
+	Serial.print(inverted);
+	Serial.println();
+
+	delay(100);
+}
