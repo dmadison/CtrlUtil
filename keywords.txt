@@ -9,11 +9,22 @@
 # Library
 CtrlUtil	KEYWORD1
 
+# Classes
+DeadzoneFilter	KEYWORD1
+DeadzoneFilterType	KEYWORD1
+
 #######################################
 # Methods and Functions (KEYWORD2)
 #######################################
 
+# Standalone Functions
 invertAxis	KEYWORD2
+
+# DeadzoneFilter
+filter	KEYWORD2
+setDeadzone	KEYWORD2
+setAlignment	KEYWORD2
+setRange	KEYWORD2
 
 #######################################
 # Instances (KEYWORD2)
@@ -22,3 +33,8 @@ invertAxis	KEYWORD2
 #######################################
 # Constants (LITERAL1)
 #######################################
+
+# DeadzoneFilter Positions
+Top	LITERAL1
+Middle	LITERAL1
+Bottom	LITERAL1
