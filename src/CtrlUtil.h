@@ -88,14 +88,12 @@ public:
 			const T thresholdLow = rangeCenter - deadzoneThreshold;
 			const T thresholdHigh = rangeCenter + deadzoneThreshold;
 
-			if (input > thresholdLow && input < thresholdHigh)
-				output = rangeCenter;  // in deadzone, output center
-			else if (input < thresholdLow)
+			if (input < thresholdLow)
 				output = map(input, rangeMin, thresholdLow, rangeMin, rangeCenter);  // low, remap to lower half
 			else if (input > thresholdHigh)
 				output = map(input, thresholdHigh, rangeMax, rangeCenter, rangeMax);  // high, remap to upper half
 			else
-				output = input;  // why are we here?
+				output = rangeCenter;  // in deadzone, output center
 			break;
 		}
 		default:
