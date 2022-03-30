@@ -67,33 +67,34 @@ public:
 		this->recalculate();  // calculate deadzone range value
 	}
 
-	T filter(T input) {
+	T filter(T input, long outMin, long outMax) {
 		T output;
 
 		switch (alignment) {
 		case(Alignment::Top):
 			if (input > deadzoneThreshold)
-				output = rangeMax;  // in deadzone, output top of range
+				output = outMax;  // in deadzone, output top of range
 			else
-				output = map(input, rangeMin, deadzoneThreshold, rangeMin, rangeMax);
+				output = map(input, rangeMin, deadzoneThreshold, outMin, outMax);
 			break;
 		case(Alignment::Bottom):
 			if (input < deadzoneThreshold)
-				output = rangeMin;  // in deadzone, output bottom of range
+				output = outMin;  // in deadzone, output bottom of range
 			else
-				output = map(input, deadzoneThreshold, rangeMax, rangeMin, rangeMax);
+				output = map(input, deadzoneThreshold, rangeMax, outMin, outMax);
 			break;
 		case(Alignment::Middle):
 		{
 			const T thresholdLow = rangeCenter - deadzoneThreshold;
 			const T thresholdHigh = rangeCenter + deadzoneThreshold;
+			const long outCenter = (outMin + outMax) / 2;
 
 			if (input < thresholdLow)
-				output = map(input, rangeMin, thresholdLow, rangeMin, rangeCenter);  // low, remap to lower half
+				output = map(input, rangeMin, thresholdLow, outMin, outCenter);  // low, remap to lower half
 			else if (input > thresholdHigh)
-				output = map(input, thresholdHigh, rangeMax, rangeCenter, rangeMax);  // high, remap to upper half
+				output = map(input, thresholdHigh, rangeMax, outCenter, outMax);  // high, remap to upper half
 			else
-				output = rangeCenter;  // in deadzone, output center
+				output = outCenter;  // in deadzone, output center
 			break;
 		}
 		default:
@@ -101,6 +102,10 @@ public:
 		}
 
 		return output;
+	}
+
+	T filter(T input) {
+		return filter(input, rangeMin, rangeMax);
 	}
 
 	void setDeadzone(float dz) {
