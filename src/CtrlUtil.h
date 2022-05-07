@@ -49,7 +49,7 @@ constexpr T invertAxis(T value)
 
 
 template <typename T>
-T fixAxisSymmetry(T value, T inMin, T inCenter, T inMax, T outMin, T outMax)
+T recenterAxis(T value, T inMin, T inCenter, T inMax, T outMin, T outMax)
 {
 	// sort input range values so min is lower than max
 	if (inMin > inMax) {

@@ -22,17 +22,21 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  * 
- *  Example:      AxisSymmetry
- *  Description:  Takes an analog input (like a joystick) with two unequal
- *                (asymmetrical) ranges and rescales the output so that it
- *                smoothly covers an entire range.
+ *  Example:      RecenterAxis
+ *  Description:  Takes an analog input (like a joystick) with an uncentered
+ *                midpoint and unequal (asymmetrical) ranges and rescales the
+ *                output so that the midpoint is in the dead center of the
+ *                desired output range.
  * 
  *                This is designed to be used when you have a joystick that has 
  *                more range on one side than the other. This lets you make use
  *                of the full range of the joystick without doing anything
  *                special to the output.
+ * 
+ *                If your joystick has drift, try to fix it with a deadzone
+ *                instead of using this function.
  *
- *                If you want to add a deadzone to this, the deadzone should be
+ *                If you want to add a deadzone, the deadzone should be
  *                applied *after* this fix.
  */
 
@@ -55,7 +59,7 @@ void setup() {
 
 void loop() {
 	int rawValue = analogRead(InputPin);
-	int symValue = fixAxisSymmetry(rawValue, InputMin, InputCenter, InputMax, OutputMin, OutputMax);
+	int symValue = recenterAxis(rawValue, InputMin, InputCenter, InputMax, OutputMin, OutputMax);
 
 	Serial.print("Raw: ");
 	Serial.print(rawValue);
