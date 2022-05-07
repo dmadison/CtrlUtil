@@ -49,6 +49,33 @@ constexpr T invertAxis(T value)
 
 
 template <typename T>
+T fixAxisSymmetry(T value, T inMin, T inCenter, T inMax, T outMin, T outMax)
+{
+	// sort input range values so min is lower than max
+	if (inMin > inMax) {
+		T temp = inMin;
+		inMin = inMax;
+		inMax = temp;
+	}
+
+	// quit if center is out of range
+	if (inCenter < inMin || inCenter > inMax) return value;
+
+	// calculate output center for range checks
+	const long outCenter = (long) (outMin + outMax) / 2;
+
+	// evaluate range for lower range
+	if (value <= inCenter) {
+		return remap(value, inMin, inCenter, outMin, outCenter);
+	}
+	// otherwise, evaluate range for upper range
+	else {
+		return remap(value, inCenter, inMax, outCenter, outMax);
+	}
+}
+
+
+template <typename T>
 class DeadzoneFilterType {
 public:
 	enum Alignment : uint8_t {

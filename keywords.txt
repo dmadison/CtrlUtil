@@ -20,6 +20,7 @@ DeadzoneFilterType	KEYWORD1
 # Standalone Functions
 remap	KEYWORD2
 invertAxis	KEYWORD2
+fixAxisSymmetry	KEYWORD2
 
 # DeadzoneFilter
 filter	KEYWORD2
