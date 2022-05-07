@@ -29,6 +29,8 @@
 
 #include <stdint.h>
 
+long remap(long value, long inMin, long inMax, long outMin, long outMax);
+
 
 template <typename T>
 constexpr T invertAxis(T value, T adc_min, T adc_max)

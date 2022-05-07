@@ -18,6 +18,7 @@ DeadzoneFilterType	KEYWORD1
 #######################################
 
 # Standalone Functions
+remap	KEYWORD2
 invertAxis	KEYWORD2
 
 # DeadzoneFilter
