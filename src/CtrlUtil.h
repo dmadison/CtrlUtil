@@ -77,13 +77,13 @@ public:
 			if (input > deadzoneThreshold)
 				output = outMax;  // in deadzone, output top of range
 			else
-				output = map(input, rangeMin, deadzoneThreshold, outMin, outMax);
+				output = remap(input, rangeMin, deadzoneThreshold, outMin, outMax);
 			break;
 		case(Alignment::Bottom):
 			if (input < deadzoneThreshold)
 				output = outMin;  // in deadzone, output bottom of range
 			else
-				output = map(input, deadzoneThreshold, rangeMax, outMin, outMax);
+				output = remap(input, deadzoneThreshold, rangeMax, outMin, outMax);
 			break;
 		case(Alignment::Middle):
 		{
@@ -92,9 +92,9 @@ public:
 			const long outCenter = (outMin + outMax) / 2;
 
 			if (input < thresholdLow)
-				output = map(input, rangeMin, thresholdLow, outMin, outCenter);  // low, remap to lower half
+				output = remap(input, rangeMin, thresholdLow, outMin, outCenter);  // low, remap to lower half
 			else if (input > thresholdHigh)
-				output = map(input, thresholdHigh, rangeMax, outCenter, outMax);  // high, remap to upper half
+				output = remap(input, thresholdHigh, rangeMax, outCenter, outMax);  // high, remap to upper half
 			else
 				output = outCenter;  // in deadzone, output center
 			break;
