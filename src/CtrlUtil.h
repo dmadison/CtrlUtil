@@ -29,6 +29,8 @@
 
 #include <stdint.h>
 
+long remap(long value, long inMin, long inMax, long outMin, long outMax);
+
 
 template <typename T>
 constexpr T invertAxis(T value, T adc_min, T adc_max)
@@ -43,6 +45,33 @@ template <typename T>
 constexpr T invertAxis(T value)
 {
 	return invertAxis<T>(value, 0, 1023);  // ADC defaults for AVR
+}
+
+
+template <typename T>
+T recenterAxis(T value, T inMin, T inCenter, T inMax, T outMin, T outMax)
+{
+	// sort input range values so min is lower than max
+	if (inMin > inMax) {
+		T temp = inMin;
+		inMin = inMax;
+		inMax = temp;
+	}
+
+	// quit if center is out of range
+	if (inCenter < inMin || inCenter > inMax) return value;
+
+	// calculate output center for range checks
+	const long outCenter = (long) (outMin + outMax) / 2;
+
+	// evaluate range for lower range
+	if (value <= inCenter) {
+		return remap(value, inMin, inCenter, outMin, outCenter);
+	}
+	// otherwise, evaluate range for upper range
+	else {
+		return remap(value, inCenter, inMax, outCenter, outMax);
+	}
 }
 
 
@@ -75,13 +104,13 @@ public:
 			if (input > deadzoneThreshold)
 				output = outMax;  // in deadzone, output top of range
 			else
-				output = map(input, rangeMin, deadzoneThreshold, outMin, outMax);
+				output = remap(input, rangeMin, deadzoneThreshold, outMin, outMax);
 			break;
 		case(Alignment::Bottom):
 			if (input < deadzoneThreshold)
 				output = outMin;  // in deadzone, output bottom of range
 			else
-				output = map(input, deadzoneThreshold, rangeMax, outMin, outMax);
+				output = remap(input, deadzoneThreshold, rangeMax, outMin, outMax);
 			break;
 		case(Alignment::Middle):
 		{
@@ -90,9 +119,9 @@ public:
 			const long outCenter = (outMin + outMax) / 2;
 
 			if (input < thresholdLow)
-				output = map(input, rangeMin, thresholdLow, outMin, outCenter);  // low, remap to lower half
+				output = remap(input, rangeMin, thresholdLow, outMin, outCenter);  // low, remap to lower half
 			else if (input > thresholdHigh)
-				output = map(input, thresholdHigh, rangeMax, outCenter, outMax);  // high, remap to upper half
+				output = remap(input, thresholdHigh, rangeMax, outCenter, outMax);  // high, remap to upper half
 			else
 				output = outCenter;  // in deadzone, output center
 			break;
