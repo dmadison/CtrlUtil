@@ -176,7 +176,7 @@ private:
 		}
 		rangeMin = min;
 		rangeMax = max;
-		rangeCenter = (max - min) / 2;
+		rangeCenter = (max + min) / 2;
 	}
 
 	void setDeadzoneInternal(float dz) {
