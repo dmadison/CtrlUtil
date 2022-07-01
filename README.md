@@ -1,8 +1,44 @@
-# Controller Utilities Library
-[![arduino-library-badge](https://www.ardu-badge.com/badge/Controller%20Utilities.svg?)](https://www.ardu-badge.com/Controller%20Utilities) [![Build Status](https://github.com/dmadison/CtrlUtil/workflows/build/badge.svg?branch=master)](https://github.com/dmadison/CtrlUtil/actions?query=workflow%3Abuild)
 
-This library contains a number of useful functions for developing custom game controllers with Arduino.
+# Controller Utilities Library   [![Badge Arduino]][Arduino]   [![Badge License]][License]
 
-## License
+*Library of useful function custom game controllers development.*
 
-This library is licensed under the terms of the [MIT license](https://opensource.org/licenses/MIT). See the [LICENSE](LICENSE) file for more information.
+<br>
+<br>
+
+<div align = center>
+
+[![Badge Status]][Status]
+
+</div>
+
+<br>
+<br>
+
+## Examples
+
+- [`RecenterAxis.ino`]
+
+- [`InvertAxis.ino`]
+
+- [`Deadzone.ino`]
+
+<br>
+
+
+<!----------------------------------------------------------------------------->
+
+[Arduino]: https://www.ardu-badge.com/Controller%20Utilities
+[Status]: https://github.com/dmadison/CtrlUtil/actions?query=workflow%3Abuild
+
+[`RecenterAxis.ino`]: examples/Deadzone/Deadzone.ino
+[`InvertAxis.ino`]: examples/InvertAxis/InvertAxis.ino
+[`Deadzone.ino`]: examples/RecenterAxis/RecenterAxis.ino
+
+[License]: LICENSE
+
+<!---------------------------------[ Badges ]---------------------------------->
+
+[Badge License]: https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge
+[Badge Arduino]: https://img.shields.io/badge/Controller_Utilities-gray?style=for-the-badge&logoColor=white&logo=Arduino&labelColor=00979D
+[Badge Status]: https://github.com/dmadison/CtrlUtil/workflows/build/badge.svg?branch=master
