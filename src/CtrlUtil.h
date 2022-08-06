@@ -206,4 +206,25 @@ private:
 using DeadzoneFilter = DeadzoneFilterType<long>;
 
 
+// Simple directional pad struct, for using with the POV hat functions
+struct DPad {
+	bool up;
+	bool down;
+	bool left;
+	bool right;
+};
+
+// Takes four discrete directional switches from a directional pad and encodes
+// them in the format of a POV hat switch (for USB output)
+//
+// The output represents a compass direction, stored in a single nybble
+// and proceeding clockwise, 45° per increment.
+uint8_t encodePovHat(DPad dpad);
+uint8_t encodePovHat(bool up, bool down, bool left, bool right);
+
+// Takes a single POV hat nybble and decodes it into four discrete switches,
+// as used with a directional pad.
+DPad decodePovHat(uint8_t pov);
+
+
 #endif
